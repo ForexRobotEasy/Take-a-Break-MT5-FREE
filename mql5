@@ -1,0 +1,117 @@
+mql5
+//+------------------------------------------------------------------+
+//|                     Take a Break MT5 FREE                         |
+//|                  https://www.forexroboteasy.com                   |
+//|                  Developed by Forex Robot Easy Team               |
+//+------------------------------------------------------------------+
+
+// Input parameters
+input bool pauseOnNews = true; // Pause EAs during news events
+input bool pauseOnVolatility = true; // Pause EAs during high volatility
+input bool pauseOnLowEquity = true; // Pause EAs when account equity is low
+input bool pauseOnSpecificTime = true; // Pause EAs during specific times
+input string specificTime = '12:00-13:00'; // Specific time range to pause EAs
+
+// Global variables
+bool isPaused = false; // Flag to track if EAs are paused
+
+//+------------------------------------------------------------------+
+//|                       Expert Advisor Start                        |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Check if EAs should be paused
+   if (ShouldPauseEAs())
+   {
+      // Pause EAs
+      PauseEAs();
+   }
+   else if (isPaused)
+   {
+      // Resume EAs
+      ResumeEAs();
+   }
+
+   // Remaining EA logic goes here
+}
+
+//+------------------------------------------------------------------+
+//|                 Function to Check Pause Conditions                |
+//+------------------------------------------------------------------+
+bool ShouldPauseEAs()
+{
+   bool shouldPause = false;
+
+   // Check if pause on news is enabled and news event is happening
+   if (pauseOnNews && IsNewsEvent())
+   {
+      shouldPause = true;
+   }
+
+   // Check if pause on volatility is enabled and volatility is high
+   if (pauseOnVolatility && IsHighVolatility())
+   {
+      shouldPause = true;
+   }
+
+   // Check if pause on low equity is enabled and equity is low
+   if (pauseOnLowEquity && IsLowEquity())
+   {
+      shouldPause = true;
+   }
+
+   // Check if pause on specific time is enabled and current time is within specified range
+   if (pauseOnSpecificTime && IsSpecificTime())
+   {
+      shouldPause = true;
+   }
+
+   return shouldPause;
+}
+
+//+------------------------------------------------------------------+
+//|                      Function to Pause EAs                         |
+//+------------------------------------------------------------------+
+void PauseEAs()
+{
+   Print('Pausing EAs...');
+   // Code to pause EAs goes here
+   isPaused = true;
+}
+
+//+------------------------------------------------------------------+
+//|                     Function to Resume EAs                         |
+//+------------------------------------------------------------------+
+void ResumeEAs()
+{
+   Print('Resuming EAs...');
+   // Code to resume EAs goes here
+   isPaused = false;
+}
+
+//+------------------------------------------------------------------+
+//|          Functions to Check Pause Conditions (placeholders)        |
+//+------------------------------------------------------------------+
+bool IsNewsEvent()
+{
+   // Placeholder function to check if news event is happening
+   return false;
+}
+
+bool IsHighVolatility()
+{
+   // Placeholder function to check if volatility is high
+   return false;
+}
+
+bool IsLowEquity()
+{
+   // Placeholder function to check if equity is low
+   return false;
+}
+
+bool IsSpecificTime()
+{
+   // Placeholder function to check if current time is within specified range
+   return false;
+}
